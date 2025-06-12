@@ -38,6 +38,6 @@ ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
 # Install Python packages
-RUN pip3 install --upgrade pip setuptools wheel --break-system-packages
+RUN pip3 install --upgrade pip setuptools wheel
 
 CMD [ "/bin/bash", "/entrypoint.sh" ] 
