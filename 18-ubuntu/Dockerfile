@@ -1,4 +1,4 @@
-FROM node:18-ubuntu
+FROM ubuntu:22.04
 
 LABEL author="ar4kiara" maintainer="ar4kiara@gmail.com"
 
@@ -17,11 +17,17 @@ RUN apt update && apt install -y \
     libpango1.0-dev \
     libjpeg-dev \
     libgif-dev \
-    librsvg2-dev \
-    && useradd -m -d /home/container container
+    librsvg2-dev
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt install -y nodejs
 
 # Install PM2 globally as root
 RUN npm install -g pm2@latest --unsafe-perm
+
+# Add user
+RUN useradd -m -d /home/container container
 
 # Copy entrypoint.sh and give execute permissions as root
 COPY ./entrypoint.sh /entrypoint.sh
